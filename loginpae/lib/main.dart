@@ -121,8 +121,6 @@ class _HomeState extends State<Home> {
               );
             },
           ),
-
-          // Light dark overlay to keep image visible
           Container(
             color: Colors.black.withOpacity(0.15),
           ),
@@ -178,7 +176,6 @@ class _HomeState extends State<Home> {
 
                           const SizedBox(height: 28),
 
-                          // Email
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
@@ -275,8 +272,6 @@ class _HomeState extends State<Home> {
                           const Divider(),
 
                           const SizedBox(height: 8),
-
-                          // Register button
                           Wrap(
                             alignment: WrapAlignment.center,
                             crossAxisAlignment:
@@ -309,8 +304,6 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-// REGISTER PAGE
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -357,7 +350,6 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Registration background image
           Image.network(
             'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1600&q=90',
             fit: BoxFit.cover,
@@ -368,7 +360,6 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
 
-          // Keep the background image visible
           Container(
             color: Colors.black.withOpacity(0.15),
           ),
@@ -424,7 +415,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           const SizedBox(height: 28),
 
-                          // Email
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
@@ -442,8 +432,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
 
                           const SizedBox(height: 18),
-
-                          // Username
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: 'Username',
@@ -461,7 +449,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           const SizedBox(height: 18),
 
-                          // Password
                           TextFormField(
                             obscureText: hidePassword,
                             decoration: InputDecoration(
