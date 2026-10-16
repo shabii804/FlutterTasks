@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:hotelmanu/OpacityAnimation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Restaurant Menu',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
         useMaterial3: true,
       ),
-      home: const MenuScreen(),
+      home: const OpacityAnimation(),
     );
   }
 }
@@ -31,14 +33,16 @@ class MenuScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Restaurant Menu',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.deepOrange,
         centerTitle: true,
-        elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12),
         child: GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: 12,
@@ -46,40 +50,46 @@ class MenuScreen extends StatelessWidget {
           childAspectRatio: 0.72,
           children: [
             _buildFoodCard(
+              context: context,
               name: 'Burger',
               price: 'Rs. 250',
               image:
-                  'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80',
             ),
             _buildFoodCard(
+              context: context,
               name: 'Pizza',
               price: 'Rs. 450',
               image:
-                  'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80',
             ),
             _buildFoodCard(
+              context: context,
               name: 'Pasta',
               price: 'Rs. 350',
               image:
-                  'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80',
             ),
             _buildFoodCard(
+              context: context,
               name: 'Coffee',
               price: 'Rs. 150',
               image:
-                  'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
             ),
             _buildFoodCard(
+              context: context,
               name: 'Fresh Juice',
               price: 'Rs. 180',
               image:
-                  'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80',
             ),
             _buildFoodCard(
+              context: context,
               name: 'Ice Cream',
               price: 'Rs. 200',
               image:
-                  'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80',
             ),
           ],
         ),
@@ -88,6 +98,7 @@ class MenuScreen extends StatelessWidget {
   }
 
   Widget _buildFoodCard({
+    required BuildContext context,
     required String name,
     required String price,
     required String image,
@@ -107,32 +118,36 @@ class MenuScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Food Image
           Expanded(
             child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
               child: Image.network(
                 image,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child: Icon(Icons.restaurant, size: 40),
+                  );
+                },
               ),
             ),
           ),
-
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -147,7 +162,13 @@ class MenuScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('$name added to cart!'),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
                       foregroundColor: Colors.white,
